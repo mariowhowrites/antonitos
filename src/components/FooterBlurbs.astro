@@ -1,0 +1,77 @@
+---
+import { Image } from "astro:assets";
+import ranchoJerusalen from "../images/rancho-jerusalen-2.jpg"
+---
+<div class="">
+    <div class="lg:grid lg:grid-cols-2 lg:gap-x-6 xl:gap-x-8">
+        <div
+            class="flex items-center rounded-lg bg-gray-100 p-6 sm:p-10"
+        >
+            <div class="mx-auto max-w-sm">
+                <h3 class="font-semibold text-gray-900">
+                    Sign up for our newsletter
+                </h3>
+                <p class="mt-2 text-sm text-gray-500">
+                    The latest news, articles, and resources, sent
+                    to your inbox weekly.
+                </p>
+                <form class="mt-4 sm:mt-6 sm:flex">
+                    <label for="email-address" class="sr-only"
+                        >Email address</label
+                    >
+                    <input
+                        id="email-address"
+                        type="text"
+                        autocomplete="email"
+                        required
+                        class="w-full min-w-0 appearance-none rounded-md border border-gray-300 bg-white px-4 py-2 text-base text-gray-900 placeholder-gray-500 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                    />
+                    <div
+                        class="mt-3 sm:ml-4 sm:mt-0 sm:flex-shrink-0"
+                    >
+                        <button
+                            type="submit"
+                            class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-white"
+                            >Sign up</button
+                        >
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div
+            class="relative mt-6 flex items-center px-6 py-12 sm:px-10 sm:py-16 lg:mt-0"
+        >
+            <div
+                class="absolute inset-0 overflow-hidden rounded-lg"
+            >
+                <Image
+                    src={ranchoJerusalen}
+                    alt=""
+                    class="h-full w-full object-cover object-center saturate-0 filter"
+                />
+                <div
+                    class="absolute inset-0 bg-antonito-tan bg-opacity-90"
+                >
+                </div>
+            </div>
+            <div class="relative mx-auto max-w-sm text-center">
+                <h3
+                    class="text-2xl font-bold tracking-tight text-white"
+                >
+                    Get early access
+                </h3>
+                <p class="mt-2 text-gray-200">
+                    Did you sign up to the newsletter? If so, use
+                    the keyword we sent you to get access. <a
+                        href="#"
+                        class="whitespace-nowrap font-bold text-white hover:text-gray-200"
+                        >Go now<span aria-hidden="true">
+                            &rarr;</span
+                        ></a
+                    >
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
