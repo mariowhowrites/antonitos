@@ -2,8 +2,6 @@
 import NavigationHeader from "../components/NavigationHeader.astro";
 import HeroSplash from "../components/HeroSplash.astro";
 import ProductCollections from "../components/ProductCollections.astro";
-import FooterBlurbs from "../components/FooterBlurbs.astro";
-import FooterLinks from "../components/FooterLinks.astro";
 import SecondaryNavigation from "../components/SecondaryNavigation.astro";
 import Layout from "../layouts/Layout.astro";
 ---
@@ -24,33 +22,14 @@ import Layout from "../layouts/Layout.astro";
   ```
 -->
 <Layout title="Antonito's Pepper Company">
-  <div class="bg-white">
-    <!-- <NavigationHeader /> -->
-    <SecondaryNavigation />
-
-    <main>
-      <!-- Hero -->
-      <div class="flex flex-col border-b border-gray-200 lg:border-0">
-        <!-- HeroPromo -->
-        <!-- HeroSplash -->
-        <HeroSplash />
-      </div>
-
-      <!-- Trending products -->
-
-      <!-- Collections -->
-      <ProductCollections />
-
-      <!-- Sale and testimonials -->
-    </main>
-
-    <footer aria-labelledby="footer-heading" class="bg-antonito-light-beige">
-      <h2 id="footer-heading" class="sr-only">Footer</h2>
-      <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <FooterBlurbs />
-
-        <FooterLinks />
-      </div>
-    </footer>
+  <div class="flex flex-col border-b border-gray-200 lg:border-0">
+    <!-- HeroPromo -->
+    <!-- HeroSplash -->
+    <HeroSplash />
   </div>
+
+  <!-- Trending products -->
+
+  <!-- Collections -->
+  <ProductCollections />
 </Layout>

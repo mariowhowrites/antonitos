@@ -1,15 +1,24 @@
 ---
 import { Image } from "astro:assets";
 import SizeSelector from "./SizeSelector.astro";
-
+import ranchoJerusalenImage from "../../images/rancho-jerusalen-2.jpg";
 const { product } = Astro.props;
-
-console.debug("product", product);
 ---
+
 <!-- Product -->
-<div class="bg-product">
+<div class="relative bg-gray-900">
+    <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
+        <Image
+            src={ranchoJerusalenImage}
+            alt={product.name + " Antonito's Pepper Company"}
+            class="h-full w-full object-cover object-center"
+        />
+    </div>
+    <div aria-hidden="true" class="absolute inset-0 bg-gray-900 opacity-90">
+    </div>
     <div
-        class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 sm:pb-32 sm:pt-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8"
+        id="product-main-content"
+        class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 sm:pb-32 sm:pt-24 lg:grid lg:max-w-7xl lg:grid-cols-2 lg:gap-x-8 lg:px-8 relative"
     >
         <!-- Product details -->
         <div class="lg:max-w-lg lg:self-end">
@@ -46,7 +55,7 @@ console.debug("product", product);
                 </ol>
             </nav>
 
-            <div class="mt-4">  
+            <div class="mt-4">
                 <h1
                     class="text-3xl font-bold tracking-tight text-white font-serif sm:text-4xl"
                 >
@@ -60,7 +69,9 @@ console.debug("product", product);
                 </h2>
 
                 <div class="flex items-center">
-                    <p class="text-lg text-green-500 font-bold sm:text-xl">${product.default_price.unit_amount / 100}</p>
+                    <p class="text-lg text-green-500 font-bold sm:text-xl">
+                        ${product.default_price.unit_amount / 100}
+                    </p>
                 </div>
 
                 <div class="mt-4 space-y-6">
@@ -82,7 +93,7 @@ console.debug("product", product);
                             clip-rule="evenodd"></path>
                     </svg>
 
-                    <p class="ml-2 text-sm text-gray-400">
+                    <p class="ml-2 text-sm text-gray-300">
                         In stock and ready to ship
                     </p>
                 </div>
@@ -108,40 +119,60 @@ console.debug("product", product);
             <section aria-labelledby="options-heading">
                 <h2 id="options-heading" class="sr-only">Product options</h2>
 
-                <form>
-                    <div class="mt-10">
-                        <button
-                            type="submit"
-                            class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                            >Get the Sauce</button
+                <div class="mt-10">
+                    <button
+                        id="checkout-button"
+                        type="submit"
+                        class="flex w-full items-center justify-center rounded-md border border-transparent bg-antonito-red px-8 py-3 text-base font-medium text-white hover:bg-antonito-tan focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+                        data-product-id={product.id}
+                        data-product-price={product.default_price.id}
+                        >Get the Sauce</button
+                    >
+                </div>
+                <div class="mt-6 text-center">
+                    <a href="#" class="group inline-flex text-base font-medium">
+                        <svg
+                            class="mr-2 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke-width="1.5"
+                            stroke="currentColor"
+                            aria-hidden="true"
                         >
-                    </div>
-                    <div class="mt-6 text-center">
-                        <a
-                            href="#"
-                            class="group inline-flex text-base font-medium"
+                            <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+                            ></path>
+                        </svg>
+                        <span class="text-gray-200 hover:text-gray-400"
+                            >Really Good Guarantee</span
                         >
-                            <svg
-                                class="mr-2 h-6 w-6 flex-shrink-0 text-gray-400 group-hover:text-gray-500"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke-width="1.5"
-                                stroke="currentColor"
-                                aria-hidden="true"
-                            >
-                                <path
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-                                ></path>
-                            </svg>
-                            <span class="text-gray-500 hover:text-gray-700"
-                                >Really Good Guarantee</span
-                            >
-                        </a>
-                    </div>
-                </form>
+                    </a>
+                </div>
             </section>
         </div>
     </div>
 </div>
+
+<script>
+    import { createCheckoutSession } from "../../api/stripe";
+
+    document.getElementById("checkout-button")?.addEventListener("click", async (event) => {
+
+        const productId = event.target?.dataset.productId;
+
+        console.debug('productId', productId);
+
+
+        const response = await fetch('/api/checkout', {
+            method: 'POST',
+            body: JSON.stringify({ productId: event.target?.dataset.productId, productPrice: event.target?.dataset.productPrice })
+        });
+
+        const data = await response.json();
+        console.log(data);
+
+        window.location.href = data.checkoutUrl;
+    });
+</script>

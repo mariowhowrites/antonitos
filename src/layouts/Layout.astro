@@ -6,6 +6,10 @@ interface Props {
 const { title } = Astro.props;
 
 import "../base.css";
+
+import FooterBlurbs from "../components/FooterBlurbs.astro";
+import FooterLinks from "../components/FooterLinks.astro";
+import SecondaryNavigation from "../components/SecondaryNavigation.astro";
 ---
 
 <!doctype html>
@@ -25,6 +29,19 @@ import "../base.css";
 		/>
 	</head>
 	<body>
-		<slot />
+		<SecondaryNavigation />
+
+		<main class="bg-gray-50">
+			<slot />
+		</main>
+
+		<footer aria-labelledby="footer-heading" class="bg-antonito-light-beige pt-16 sm:pt-24 lg:pt-32">
+			<h2 id="footer-heading" class="sr-only">Footer</h2>
+			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+			  <FooterBlurbs />
+	  
+			  <FooterLinks />
+			</div>
+		  </footer>
 	</body>
 </html>
