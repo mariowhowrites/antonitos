@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import antonitosLogo from "../images/logo.png";
+import ResponsiveImage from "./ResponsiveImage.astro";
 ---
 
 <!-- Secondary navigation -->
@@ -12,7 +13,7 @@ import antonitosLogo from "../images/logo.png";
                 <div class="hidden lg:flex lg:items-center">
                     <a href="/">
                         <span class="sr-only">Antonitos Pepper Company</span>
-                        <Image class="h-8 w-auto" src={antonitosLogo} alt="" />
+                        <ResponsiveImage class="h-8 w-auto" src={antonitosLogo} alt="" />
                     </a>
                 </div>
 
@@ -49,7 +50,7 @@ import antonitosLogo from "../images/logo.png";
                 <!-- Logo (lg-) -->
                 <a href="/" class="lg:hidden">
                     <span class="sr-only">Antonito's Pepper Company</span>
-                    <Image class="h-8 w-auto" src={antonitosLogo} alt="" />
+                    <ResponsiveImage class="h-8 w-auto" src={antonitosLogo} alt="" />
                 </a>
 
                 <div class="flex flex-1 items-center justify-end">

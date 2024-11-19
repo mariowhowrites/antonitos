@@ -7,16 +7,15 @@ const { title } = Astro.props;
 
 import "../base.css";
 
-import FooterBlurbs from "../components/FooterBlurbs.astro";
-import FooterLinks from "../components/FooterLinks.astro";
 import SecondaryNavigation from "../components/SecondaryNavigation.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content="Starring chipotles in adobo and backed by a supporting cast of Mexico's finest chilies, Antonito's Pepper Company offers the finest hot sauce and chili powder this side of the astroid belt." />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
@@ -35,13 +34,6 @@ import SecondaryNavigation from "../components/SecondaryNavigation.astro";
 			<slot />
 		</main>
 
-		<footer aria-labelledby="footer-heading" class="bg-antonito-light-beige pt-16 sm:pt-24 lg:pt-32">
-			<h2 id="footer-heading" class="sr-only">Footer</h2>
-			<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			  <FooterBlurbs />
-	  
-			  <FooterLinks />
-			</div>
-		  </footer>
+		<Footer />
 	</body>
 </html>

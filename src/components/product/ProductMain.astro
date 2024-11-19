@@ -1,14 +1,18 @@
 ---
-import { Image } from "astro:assets";
 import SizeSelector from "./SizeSelector.astro";
 import ranchoJerusalenImage from "../../images/rancho-jerusalen-2.jpg";
+import hotSauceImage from "../../images/hot-sauce.jpg";
+import chiliPowderImage from "../../images/chili-powder.jpg";
+import ResponsiveImage from "../ResponsiveImage.astro";
 const { product } = Astro.props;
+
+const productImage = product.metadata.slug === "hot-sauce" ? hotSauceImage : chiliPowderImage;
 ---
 
 <!-- Product -->
 <div class="relative bg-gray-900">
     <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
-        <Image
+        <ResponsiveImage
             src={ranchoJerusalenImage}
             alt={product.name + " Antonito's Pepper Company"}
             class="h-full w-full object-cover object-center"
@@ -103,9 +107,8 @@ const { product } = Astro.props;
         <!-- Product image -->
         <div class="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
             <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg">
-                <Image
-                    inferSize={true}
-                    src={product.images[0]}
+                <ResponsiveImage
+                    src={productImage}
                     alt="Light green canvas bag with black straps, handle, front zipper pouch, and drawstring top."
                     class="h-full w-full object-cover object-center"
                 />
@@ -159,15 +162,11 @@ const { product } = Astro.props;
     import { createCheckoutSession } from "../../api/stripe";
 
     document.getElementById("checkout-button")?.addEventListener("click", async (event) => {
-
-        const productId = event.target?.dataset.productId;
-
-        console.debug('productId', productId);
-
+        const button = event.target as HTMLButtonElement;
 
         const response = await fetch('/api/checkout', {
             method: 'POST',
-            body: JSON.stringify({ productId: event.target?.dataset.productId, productPrice: event.target?.dataset.productPrice })
+            body: JSON.stringify({ productId: button.dataset.productId, productPrice: button.dataset.productPrice })
         });
 
         const data = await response.json();

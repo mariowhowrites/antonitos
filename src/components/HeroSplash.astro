@@ -1,11 +1,11 @@
 ---
-import { Image } from "astro:assets";
 import ranchoJerusalenImage from "../images/rancho-jerusalen.jpg"
+import ResponsiveImage from "./ResponsiveImage.astro";
 ---
 <div class="relative bg-gray-900">
     <!-- Decorative image and overlay -->
     <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
-        <Image
+        <ResponsiveImage
             src={ranchoJerusalenImage}
             alt=""
             class="h-full w-full object-cover object-center"

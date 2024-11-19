@@ -1,8 +1,7 @@
 ---
-import { Image } from "astro:assets";
 import chilisAndPowder from "../images/chilis-and-powder.jpg";
 import onions from "../images/onions.jpg";
-import shipping from "../images/shipping.svg";
+import ResponsiveImage from "./ResponsiveImage.astro";
 ---
 
 <div class="bg-antonito-light-beige">
@@ -34,7 +33,7 @@ import shipping from "../images/shipping.svg";
                     <div
                         class="aspect-h-2 aspect-w-3 w-full overflow-hidden rounded-lg"
                     >
-                        <Image
+                        <ResponsiveImage
                             src={chilisAndPowder}
                             alt="Photo of chilis and chili powder by Malinovy Knedlik on Unsplash"
                             class="h-full w-full object-cover object-center"
@@ -54,7 +53,7 @@ import shipping from "../images/shipping.svg";
                     <div
                         class="aspect-h-2 aspect-w-3 w-full overflow-hidden rounded-lg"
                     >
-                        <Image
+                        <ResponsiveImage
                             src={onions}
                             alt="Photo of onions by Stella de Smit on Unsplash"
                             class="h-full w-full object-cover object-center"
