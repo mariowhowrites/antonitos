@@ -79,7 +79,7 @@ const productImage = product.metadata.slug === "hot-sauce" ? hotSauceImage : chi
                 </div>
 
                 <div class="mt-4 space-y-6">
-                    <p class="text-base text-white">
+                    <p class="text-white text-lg">
                         {product.description}
                     </p>
                 </div>
@@ -159,8 +159,6 @@ const productImage = product.metadata.slug === "hot-sauce" ? hotSauceImage : chi
 </div>
 
 <script>
-    import { createCheckoutSession } from "../../api/stripe";
-
     document.getElementById("checkout-button")?.addEventListener("click", async (event) => {
         const button = event.target as HTMLButtonElement;
 
@@ -170,7 +168,6 @@ const productImage = product.metadata.slug === "hot-sauce" ? hotSauceImage : chi
         });
 
         const data = await response.json();
-        console.log(data);
 
         window.location.href = data.checkoutUrl;
     });

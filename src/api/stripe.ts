@@ -44,7 +44,8 @@ async function createCheckoutSession(productId: string, productPrice: string) {
         success_url: "http://localhost:4321/thank-you",
         cancel_url: "http://localhost:4321",
         'line_items[0][price]': productPrice,
-        'line_items[0][quantity]': "1"
+        'line_items[0][quantity]': "1",
+        'shipping_address_collection[allowed_countries][0]': "US",
     });
 
     return response;
