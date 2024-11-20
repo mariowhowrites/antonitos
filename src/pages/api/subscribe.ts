@@ -7,8 +7,10 @@ export const POST: APIRoute = async ({ request }) => {
     const body = await request.json();
     
     const response = await subscribe(body.email);
+    
+    if (response.data) {
+        return new Response(JSON.stringify(response.data), { status: 200 });
+    }
 
-    console.log(response);
-
-    return new Response(JSON.stringify(response), { status: 200 });
+    return new Response(JSON.stringify(response.message), { status: 400 });
 };

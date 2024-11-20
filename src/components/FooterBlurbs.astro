@@ -38,6 +38,7 @@ import ResponsiveImage from "./ResponsiveImage.astro";
                         >
                     </div>
                 </section>
+                <p id="subscribe-message" class="mt-2 text-sm"></p>
             </div>
         </div>
 
@@ -85,6 +86,20 @@ import ResponsiveImage from "./ResponsiveImage.astro";
             body: JSON.stringify({ email: (document.getElementById('email-address') as HTMLInputElement).value }),
         });
 
-        console.log(response);
+        const subscribeMessage = document.getElementById('subscribe-message')!;
+
+        if (response.status === 200) {
+            subscribeMessage.classList.remove('text-red-500');
+            subscribeMessage.classList.add('text-green-500');
+            
+            subscribeMessage.textContent = 'Thanks for subscribing!';
+        } else {
+            subscribeMessage.classList.remove('text-green-500');
+            subscribeMessage.classList.add('text-red-500');
+
+            const reason = await response.text();
+
+            subscribeMessage.textContent = reason.replaceAll('"', '');
+        }
     });
 </script>
