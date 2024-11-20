@@ -30,7 +30,7 @@ export const getStaticPaths = (async () => {
 const { product } = Astro.props as { product: Product };
 ---
 
-<Layout title={product.name + " | Antonito's Pepper Company"}>
+<Layout title={product.name}>
     <ProductMain product={product} />
 
     <ProductDetails product={product} />
