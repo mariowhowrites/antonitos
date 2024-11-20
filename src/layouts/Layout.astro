@@ -27,10 +27,10 @@ import Footer from "../components/Footer.astro";
 			rel="stylesheet"
 		/>
 	</head>
-	<body>
+	<body class="min-h-screen flex flex-col">
 		<SecondaryNavigation />
 
-		<main class="bg-gray-50">
+		<main class="bg-gray-50 flex-grow flex flex-col">
 			<slot />
 		</main>
 

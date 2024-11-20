@@ -1,0 +1,29 @@
+---
+import ResponsiveImage from "../components/ResponsiveImage.astro";
+import ranchoJerusalenImage from "../images/rancho-jerusalen-3.jpg";
+import Layout from "./Layout.astro";
+---
+
+<Layout title="About Antonito's Pepper Company">
+    <div class="relative bg-gray-900 h-full flex-grow">
+        <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
+            <ResponsiveImage
+                src={ranchoJerusalenImage}
+                alt={"Antonito's Pepper Company - A view of the ranch where it all began"}
+                class="h-full w-full object-cover object-center"
+            />
+        </div>
+        <div aria-hidden="true" class="absolute inset-0 bg-gray-900 opacity-90">
+        </div>
+        <div
+            class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 sm:pb-32 sm:pt-24 lg:max-w-7xl lg:px-8 relative"
+        >
+            <h1
+                class="text-3xl font-bold tracking-tight text-white font-serif sm:text-4xl"
+            >
+                <slot name="title" />
+            </h1>
+            <slot />
+        </div>
+    </div>
+</Layout>
