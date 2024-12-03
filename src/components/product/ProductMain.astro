@@ -1,5 +1,4 @@
 ---
-import SizeSelector from "./SizeSelector.astro";
 import ranchoJerusalenImage from "../../images/rancho-jerusalen-2.jpg";
 import hotSauceImage from "../../images/hot-sauce.jpg";
 import chiliPowderImage from "../../images/chili-powder.jpg";
@@ -127,10 +126,11 @@ const productImage = product.metadata.slug === "hot-sauce" ? hotSauceImage : chi
                         id="checkout-button"
                         type="submit"
                         class="flex w-full items-center justify-center rounded-md border border-transparent bg-antonito-red px-8 py-3 text-base font-bold text-white hover:bg-antonito-tan focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-                        data-product-id={product.id}
                         data-product-price={product.default_price.id}
-                        >Get the Sauce</button
                     >
+                        Get the Sauce
+                    </button>
+                    <p id="checkout-message" class="mt-2 text-sm text-center"></p>
                 </div>
                 <div class="mt-6 text-center">
                     <a href="#" class="group inline-flex text-base font-medium">
@@ -161,14 +161,40 @@ const productImage = product.metadata.slug === "hot-sauce" ? hotSauceImage : chi
 <script>
     document.getElementById("checkout-button")?.addEventListener("click", async (event) => {
         const button = event.target as HTMLButtonElement;
+        const messageEl = document.getElementById('checkout-message')!;
+        
+        // Disable button and show loading state
+        button.disabled = true;
+        button.textContent = 'Sending you to Stripe...';
+        messageEl.textContent = '';
 
-        const response = await fetch('/api/checkout', {
-            method: 'POST',
-            body: JSON.stringify({ productId: button.dataset.productId, productPrice: button.dataset.productPrice })
-        });
+        try {
+            const response = await fetch('/api/checkout', {
+                method: 'POST',
+                body: JSON.stringify({ 
+                    productPrice: button.dataset.productPrice 
+                })
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        window.location.href = data.checkoutUrl;
+            if (response.status === 200 && data.checkoutUrl) {
+                window.location.href = data.checkoutUrl;
+            } else {
+                messageEl.classList.add('text-red-500');
+                messageEl.textContent = data.message || 'Failed to create checkout session';
+                
+                // Reset button
+                button.disabled = false;
+                button.textContent = 'Get the Sauce';
+            }
+        } catch (error) {
+            messageEl.classList.add('text-red-500');
+            messageEl.textContent = 'Something went wrong. Please try again.';
+            
+            // Reset button
+            button.disabled = false;
+            button.textContent = 'Get the Sauce';
+        }
     });
 </script>

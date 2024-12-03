@@ -38,7 +38,7 @@ async function postToStripe(endpoint: string, params: Record<string, string> = {
     return await response.json();
 }
 
-async function createCheckoutSession(productId: string, productPrice: string) {
+async function createCheckoutSession(productPrice: string) {
     const response = await postToStripe("/checkout/sessions", {}, {
         mode: "payment",
         success_url: "http://localhost:4321/thank-you",

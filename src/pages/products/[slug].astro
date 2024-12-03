@@ -17,8 +17,6 @@ interface Product {
 export const getStaticPaths = (async () => {
     const productsResponse = await fetchFromStripe("/products");
 
-    console.debug("productsResponse", productsResponse);
-
     return productsResponse.data.map((product: any) => ({
         params: { slug: product.metadata.slug },
         props: { product },
