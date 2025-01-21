@@ -163,8 +163,6 @@ function _addToCart() {
           <span class="text-gray-200 hover:text-gray-400">Really Good Guarantee</span>
         </a>
       </div>
-
-      <p>Cart Items: {{ lineItems.length }}</p>
     </section>
   </div>
 </template>

@@ -49,15 +49,15 @@ async function handleCheckout() {
 </script>
 
 <template>
-  <div class="bg-white">
-    <div class="mx-auto max-w-2xl px-4 py-16 sm:px-6 sm:py-24 lg:px-0">
+  <div class="text-white">
+    <div class="mx-auto max-w-2xl px-0 pb-16 sm:px-6 sm:py-24 lg:px-0">
       <form class="mt-12" @submit.prevent="handleCheckout">
         <section aria-labelledby="cart-heading">
           <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
           <ul
             role="list"
-            class="divide-y divide-gray-200 border-b border-t border-gray-200"
+            class="divide-y divide-gray-600"
           >
             <li
               v-for="(lineItem, index) in lineItems"
@@ -77,11 +77,11 @@ async function handleCheckout() {
                 <div>
                   <div class="flex justify-between">
                     <h4 class="text-sm">
-                      <a href="#" class="font-medium text-gray-700 hover:text-gray-800">{{
+                      <a href="#" class="font-serif text-xl text-gray-100 hover:text-gray-300">{{
                         lineItem.product.name + " x " + lineItem.quantity
                       }}</a>
                     </h4>
-                    <p class="ml-4 text-sm font-medium text-green-500">
+                    <p class="ml-4 text-sm font-medium text-gray-400">
                       ${{ lineItem.unitAmount }}
                     </p>
                   </div>
@@ -90,9 +90,9 @@ async function handleCheckout() {
                 </div>
 
                 <div class="mt-4 flex flex-1 items-end justify-between">
-                  <p class="flex items-center space-x-2 text-sm text-gray-700">
+                  <p class="flex items-center space-x-2 text-sm text-gray-300">
                     <svg
-                      class="size-5 shrink-0 text-green-500"
+                      class="size-5 shrink-0 text-green-600"
                       viewBox="0 0 20 20"
                       fill="currentColor"
                       aria-hidden="true"
@@ -122,7 +122,7 @@ async function handleCheckout() {
                   <div class="ml-4">
                     <button
                       type="button"
-                      class="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                      class="text-sm font-medium text-rose-400 hover:text-indigo-500"
                       @click="removeLineItem(index)"
                     >
                       <span>Remove</span>
@@ -141,12 +141,12 @@ async function handleCheckout() {
           <div>
             <dl class="space-y-4">
               <div class="flex items-center justify-between">
-                <dt class="text-base font-medium text-gray-900">Subtotal</dt>
-                <dd class="ml-4 text-base font-medium text-gray-900">${{ cartTotal }} </dd>
+                <dt class="text-base font-medium text-gray-100">Subtotal</dt>
+                <dd class="ml-4 text-base font-medium text-gray-100">${{ cartTotal }} </dd>
               </div>
             </dl>
             <p class="mt-1 text-sm text-gray-500">
-              Shipping and taxes will be calculated at checkout.
+              All prices include shipping.
             </p>
           </div>
 
@@ -164,16 +164,6 @@ async function handleCheckout() {
               class="mt-2 text-sm text-center text-red-500"
             >
               {{ errorMessage }}
-            </p>
-          </div>
-
-          <div class="mt-6 text-center text-sm">
-            <p>
-              or{{ " " }}
-              <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">
-                Continue Shopping
-                <span aria-hidden="true"> &rarr;</span>
-              </a>
             </p>
           </div>
         </section>

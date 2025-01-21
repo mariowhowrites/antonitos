@@ -40,7 +40,7 @@ async function createCheckoutSession(lineItems: LineItem[]) {
     const requestBody = buildLineItems(lineItems, {
         mode: "payment",
         success_url: "https://antonitos.shop/thank-you",
-        cancel_url: "https://antonitos.shop",
+        cancel_url: "https://antonitos.shop/cart",
         'shipping_address_collection[allowed_countries][0]': "US",
     });
 
