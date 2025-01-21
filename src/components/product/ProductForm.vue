@@ -26,7 +26,7 @@ const buttonText = computed(() => {
   return isCheckingOut.value ? "Sending you to Stripe..." : "Get the Sauce";
 });
 
-function _addToCart() {
+function addToCart() {
   addLineItem({
     quantity: quantity.value,
     product: props.product,
@@ -139,7 +139,7 @@ function _addToCart() {
           ref="checkoutButton"
           type="submit"
           class="flex w-full items-center justify-center rounded-md border border-transparent bg-antonito-red px-8 py-3 text-base font-bold text-white hover:bg-antonito-tan focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
-          @click="_addToCart"
+          @click="addToCart"
         >
           Add to Cart
         </button>
