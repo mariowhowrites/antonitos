@@ -1,0 +1,25 @@
+---
+import BasicLayout from "../layouts/BasicLayout.astro";
+import CartComponent from "@/components/cart/CartComponent.vue";
+import ResponsiveImage from "@/components/ResponsiveImage.astro";
+import hotSauceImage from "@/images/hot-sauce.jpg";
+import chiliPowderImage from "@/images/chili-powder.jpg";
+---
+
+<BasicLayout title="Cart">
+    <CartComponent client:load>
+        <ResponsiveImage
+            src={hotSauceImage}
+            alt="Hot Sauce - Antonito's Pepper Company"
+            slot="hot-sauce-image"
+            class="size-24 rounded-md object-cover sm:size-32"
+        />
+        <ResponsiveImage
+            src={chiliPowderImage}
+            alt="Chili Powder - Antonito's Pepper Company"
+            slot="chili-powder-image"
+            class="size-24 rounded-md object-cover sm:size-32"
+        />
+    </CartComponent>
+</BasicLayout>
+

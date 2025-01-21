@@ -1,3 +1,5 @@
+import type { LineItem, Product } from "@/types";
+
 const STRIPE_SECRET_KEY = import.meta.env.STRIPE_API_KEY;
 const STRIPE_API_URL = "https://api.stripe.com/v1";
 
@@ -19,12 +21,8 @@ async function fetchFromStripe(endpoint: string, params: Record<string, string> 
     return await response.json();
 }
 
-async function postToStripe(endpoint: string, params: Record<string, string> = {}, body: Record<string, any> = {}) {
+async function postToStripe(endpoint: string, body: Record<string, any> = {}) {
     const url = new URL(`${STRIPE_API_URL}${endpoint}`);
-
-    Object.entries(params).forEach(([key, value]) => {
-        url.searchParams.append(key, value);
-    });
 
     const response = await fetch(url.toString(), {
         method: "POST",
@@ -38,17 +36,29 @@ async function postToStripe(endpoint: string, params: Record<string, string> = {
     return await response.json();
 }
 
-async function createCheckoutSession(productPrice: string) {
-    const response = await postToStripe("/checkout/sessions", {}, {
+async function createCheckoutSession(lineItems: LineItem[]) {
+    const requestBody = buildLineItems(lineItems, {
         mode: "payment",
-        success_url: "http://localhost:4321/thank-you",
-        cancel_url: "http://localhost:4321",
-        'line_items[0][price]': productPrice,
-        'line_items[0][quantity]': "1",
+        success_url: "https://antonitos.shop/thank-you",
+        cancel_url: "https://antonitos.shop",
         'shipping_address_collection[allowed_countries][0]': "US",
     });
 
-    return response;
+    console.debug(requestBody);
+
+    return postToStripe("/checkout/sessions", requestBody);
 }
+
+function buildLineItems(lineItems: LineItem[], requestBody: Record<string, any>): Record<string, any> {
+    lineItems.forEach((lineItem, index) => {
+        requestBody['line_items[' + index + '][price_data][product]'] = lineItem.product.id;
+        requestBody['line_items[' + index + '][price_data][unit_amount_decimal]'] = Math.floor(lineItem.unitAmount);
+        requestBody['line_items[' + index + '][quantity]'] = lineItem.quantity
+        requestBody['line_items[' + index + '][price_data][currency]'] = "usd";
+    })
+
+    return requestBody;
+}
+
 
 export { fetchFromStripe, createCheckoutSession };

@@ -7,15 +7,27 @@ import react from '@astrojs/react';
 
 import node from '@astrojs/node';
 
+import vue from '@astrojs/vue';
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [tailwind({
     applyBaseStyles: false
-  }), react()],
+  }), react(), vue({
+    appEntrypoint: '/src/app'
+  })],
 
-  output: 'hybrid',
+  output: 'static',
 
   adapter: node({
     mode: 'standalone'
-  })
+  }),
+
+  vite: {
+    resolve: {
+      alias: {
+        '@': '/src'
+      }
+    }
+  }
 });
