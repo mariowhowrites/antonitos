@@ -2,6 +2,7 @@
 import { ref, computed } from "vue";
 import { useCartStore } from "@/stores/cart";
 import { storeToRefs } from "pinia";
+import Product from "@/models/product";
 
 const store = useCartStore();
 
@@ -17,7 +18,7 @@ const isButtonDisabled = computed(() => {
 
 const cartTotal = computed(() => {
   return lineItems.value.reduce((total, lineItem) => {
-    return total + lineItem.unitAmount;
+    return total + Product.getPrice(lineItem.product, lineItem.quantity);
   }, 0);
 });
 
@@ -55,14 +56,11 @@ async function handleCheckout() {
         <section aria-labelledby="cart-heading">
           <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
-          <ul
-            role="list"
-            class="divide-y divide-gray-600"
-          >
+          <ul role="list">
             <li
               v-for="(lineItem, index) in lineItems"
               :key="lineItem.name"
-              class="flex py-6"
+              class="flex py-8"
             >
               <div class="shrink-0">
                 <!-- <img
@@ -70,19 +68,21 @@ async function handleCheckout() {
                   :alt="lineItem.product.imageAlt"
                   class="size-24 rounded-md object-cover sm:size-32"
                 /> -->
-                <slot :name="lineItem.product.metadata.slug + '-image'" :index="index" />
+                <slot :name="lineItem.product.slug + '-image'" :index="index" />
               </div>
 
               <div class="ml-4 flex flex-1 flex-col sm:ml-6">
                 <div>
                   <div class="flex justify-between">
                     <h4 class="text-sm">
-                      <a href="#" class="font-serif text-xl text-gray-100 hover:text-gray-300">{{
-                        lineItem.product.name + " x " + lineItem.quantity
-                      }}</a>
+                      <a
+                        href="#"
+                        class="font-serif text-xl text-gray-100 hover:text-gray-300"
+                        >{{ lineItem.product.name + " x " + lineItem.quantity }}</a
+                      >
                     </h4>
                     <p class="ml-4 text-sm font-medium text-gray-400">
-                      ${{ lineItem.unitAmount }}
+                      ${{ Product.getPrice(lineItem.product, lineItem.quantity) }}
                     </p>
                   </div>
                   <!-- <p class="mt-1 text-sm text-gray-500">{{ product.color }}</p>
@@ -142,12 +142,10 @@ async function handleCheckout() {
             <dl class="space-y-4">
               <div class="flex items-center justify-between">
                 <dt class="text-base font-medium text-gray-100">Subtotal</dt>
-                <dd class="ml-4 text-base font-medium text-gray-100">${{ cartTotal }} </dd>
+                <dd class="ml-4 text-base font-medium text-gray-100">${{ cartTotal }}</dd>
               </div>
             </dl>
-            <p class="mt-1 text-sm text-gray-500">
-              All prices include shipping.
-            </p>
+            <p class="mt-1 text-sm text-gray-500">All prices include shipping.</p>
           </div>
 
           <div class="mt-10">

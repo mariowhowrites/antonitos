@@ -1,13 +1,10 @@
 ---
 import ranchoJerusalenImage from "../../images/rancho-jerusalen-2.jpg";
-import hotSauceImage from "../../images/hot-sauce.jpg";
-import chiliPowderImage from "../../images/chili-powder.jpg";
 import ResponsiveImage from "../ResponsiveImage.astro";
 import ProductForm from "./ProductForm.vue";
 const { product } = Astro.props;
 
-const productImage =
-    product.metadata.slug === "hot-sauce" ? hotSauceImage : chiliPowderImage;
+console.debug(product);
 ---
 
 <!-- Product -->
@@ -104,7 +101,7 @@ const productImage =
         <div class="mt-10 lg:col-start-2 lg:row-span-2 lg:mt-0 lg:self-center">
             <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg">
                 <ResponsiveImage
-                    src={productImage}
+                    src={product.image}
                     alt="Light green canvas bag with black straps, handle, front zipper pouch, and drawstring top."
                     class="h-full w-full object-cover object-center"
                 />

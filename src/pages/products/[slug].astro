@@ -5,18 +5,18 @@ import ProductDetails from "../../components/ProductDetails.astro";
 import ProductReviews from "../../components/product/ProductReviews.astro";
 import { fetchFromStripe } from "../../api/stripe";
 import Layout from "../../layouts/Layout.astro";
-import type { Product } from "@/types";
+import Product from "@/models/product";
 
 export const getStaticPaths = (async () => {
     const productsResponse = await fetchFromStripe("/products");
 
     return productsResponse.data.map((product: any) => ({
         params: { slug: product.metadata.slug },
-        props: { product },
+        props: { product: new Product(product) },
     }));
 }) satisfies GetStaticPaths;
 
-const { product } = Astro.props as { product: Product };
+const { product } = Astro.props;
 ---
 
 <Layout title={product.name}>

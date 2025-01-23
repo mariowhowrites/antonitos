@@ -3,5 +3,21 @@ import BasicLayout from "../layouts/BasicLayout.astro";
 ---
 
 <BasicLayout title="Thank you for your order!">
-    <p>Thank you for your order!</p>
+    <div class="flex flex-col gap-2">
+        <p class="text-gray-300 mt-10">
+            We've got the 411 and our team is working hard to get you the sauce
+            you deserve.
+        </p>
+
+        <p class="text-gray-300">
+            We'll send you an email when your order has shipped -- expect it
+            within a week.
+        </p>
+
+        <p class="text-gray-300">
+            If you have any questions, please contact us at <a
+                href="mailto:anthonyvega3@antonitos.shop">anthonyvega3@antonitos.shop</a
+            >.
+        </p>
+    </div>
 </BasicLayout>

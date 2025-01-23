@@ -1,16 +1,16 @@
 import type { APIRoute } from "astro";
 import { createCheckoutSession } from "../../api/stripe";
-import type { LineItem, Product } from "@/types";
-import { pricingTable } from "@/pricing";
+import type { LineItem } from "@/types";
+import Product from "@/models/Product";
 
 export const prerender = false;
 
 export const POST: APIRoute = async ({ request }) => {
     try {
         const { lineItems } = await request.json() as { lineItems: LineItem[] };
-        const errorMessage = validateLineItems(lineItems);
 
         // validate the body
+        const errorMessage = Product.validateLineItems(lineItems);
         if (errorMessage !== null) {
             return new Response(
                 JSON.stringify({ message: errorMessage }),
@@ -18,10 +18,7 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
-        const session = await createCheckoutSession(lineItems.map((lineItem) => ({
-            ...lineItem,
-            unitAmount: pricingTable[lineItem.product.name][lineItem.quantity] / lineItem.quantity * 100
-        })));
+        const session = await createCheckoutSession(lineItems);
 
         if (!session?.url) {
             return new Response(
@@ -43,20 +40,3 @@ export const POST: APIRoute = async ({ request }) => {
         );
     }
 };
-
-
-function validateLineItems(lineItems: LineItem[]): string | null {
-    let errorMessage: string | null = null;
-
-    lineItems.forEach(lineItem => {
-        if (!Object.keys(pricingTable).includes(lineItem.product.name)) {
-            errorMessage = "Invalid product name: " + lineItem.product.name
-        }
-
-        if (!Object.keys(pricingTable[lineItem.product.name]).includes(lineItem.quantity.toString())) {
-            errorMessage = "Invalid quantity: " + lineItem.quantity
-        }
-    });
-
-    return errorMessage;
-}

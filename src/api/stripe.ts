@@ -44,15 +44,13 @@ async function createCheckoutSession(lineItems: LineItem[]) {
         'shipping_address_collection[allowed_countries][0]': "US",
     });
 
-    console.debug(requestBody);
-
     return postToStripe("/checkout/sessions", requestBody);
 }
 
 function buildLineItems(lineItems: LineItem[], requestBody: Record<string, any>): Record<string, any> {
     lineItems.forEach((lineItem, index) => {
-        requestBody['line_items[' + index + '][price_data][product]'] = lineItem.product.id;
-        requestBody['line_items[' + index + '][price_data][unit_amount_decimal]'] = Math.floor(lineItem.unitAmount);
+        requestBody['line_items[' + index + '][price_data][product]'] = lineItem.product.stripeID;
+        requestBody['line_items[' + index + '][price_data][unit_amount]'] = Math.floor(lineItem.unitAmount) * 100; // multiply by 100 to get cents
         requestBody['line_items[' + index + '][quantity]'] = lineItem.quantity
         requestBody['line_items[' + index + '][price_data][currency]'] = "usd";
     })
