@@ -52,7 +52,7 @@ async function handleCheckout() {
 <template>
   <div class="text-white">
     <div class="mx-auto max-w-2xl px-0 pb-16 sm:px-6 sm:py-24 lg:px-0">
-      <form class="mt-12" @submit.prevent="handleCheckout">
+      <form v-if="lineItems.length > 0" class="mt-12" @submit.prevent="handleCheckout">
         <section aria-labelledby="cart-heading">
           <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
@@ -76,7 +76,7 @@ async function handleCheckout() {
                   <div class="flex justify-between">
                     <h4 class="text-sm">
                       <a
-                        href="#"
+                        :href="`/products/${lineItem.product.slug}`"
                         class="font-serif text-xl text-gray-100 hover:text-gray-300"
                         >{{ lineItem.product.name + " x " + lineItem.quantity }}</a
                       >
@@ -166,6 +166,14 @@ async function handleCheckout() {
           </div>
         </section>
       </form>
+      <div v-else class="mt-12 flex flex-col items-center">
+        <p class="text-center text-gray-300">Your cart is empty. Let's fix that!</p>
+        <a
+          href="/products/hot-sauce"
+          class="mt-8 inline-block rounded-md border border-transparent bg-antonito-red text-white px-8 py-3 text-base font-bold"
+          >Get the Sauce</a
+        >
+      </div>
     </div>
   </div>
 </template>
