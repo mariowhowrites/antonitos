@@ -16,7 +16,7 @@ export const getStaticPaths = (async () => {
     }));
 }) satisfies GetStaticPaths;
 
-const { product } = Astro.props;
+const { product } = Astro.props as { product: Product };
 ---
 
 <Layout title={product.name}>

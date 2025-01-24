@@ -1,7 +1,7 @@
 import type { APIRoute } from "astro";
 import { createCheckoutSession } from "../../api/stripe";
 import type { LineItem } from "@/types";
-import Product from "@/models/Product";
+import Product from "@/models/product";
 
 export const prerender = false;
 

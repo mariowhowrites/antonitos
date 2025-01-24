@@ -15,7 +15,7 @@ const cartStore = useCartStore();
 const { lineItems } = storeToRefs(cartStore);
 const { addLineItem } = cartStore;
 
-const quantity = ref(1);
+const quantity = ref("1");
 const dollarPrice = computed(() => Product.getPrice(product, quantity.value));
 
 function addToCart() {
